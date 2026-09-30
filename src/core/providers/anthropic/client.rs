@@ -731,6 +731,7 @@ mod request;
 mod request_utils;
 mod response;
 mod usage;
+pub(crate) use usage::build_usage;
 
 #[cfg(test)]
 mod compatible_tests;
