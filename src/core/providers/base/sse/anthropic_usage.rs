@@ -1,6 +1,6 @@
-use serde_json::{Value, json};
+use serde_json::Value;
 
-use crate::core::providers::anthropic::client::build_usage;
+use crate::core::providers::anthropic::client::build_usage_from_parts;
 use crate::core::types::responses::Usage;
 
 #[derive(Debug, Default)]
@@ -28,11 +28,11 @@ impl AnthropicUsageState {
                 *previous = Some(value);
             }
         }
-        build_usage(&json!({
-            "input_tokens": self.input_tokens,
-            "output_tokens": self.output_tokens,
-            "cache_creation_input_tokens": self.cache_creation_input_tokens,
-            "cache_read_input_tokens": self.cache_read_input_tokens,
-        }))
+        build_usage_from_parts(
+            self.input_tokens,
+            self.output_tokens,
+            self.cache_creation_input_tokens,
+            self.cache_read_input_tokens,
+        )
     }
 }
